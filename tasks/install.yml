@@ -1,0 +1,27 @@
+---
+# Install openliberty packages
+
+- name: unwanted packages are removed
+  package:
+    name: "{{ openliberty_packages_remove }}"
+    state: absent
+  become: true
+  when: openliberty_remove_packages
+
+- name: prereq repositories are installed
+  package:
+    name: "{{ openliberty_packages_repos }}"
+    state: "{{ openliberty_packages_state }}"
+  become: true
+
+- name: prereq packages are installed
+  package:
+    name: "{{ openliberty_packages_prereq }}"
+    state: "{{ openliberty_packages_state }}"
+  become: true
+
+- name: packages are installed
+  package:
+    name: "{{ openliberty_packages_install }}"
+    state: "{{ openliberty_packages_state }}"
+  become: true
